@@ -1,0 +1,137 @@
+<!-- profile.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for profile page */
+        .profile-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+      .btn{
+        background-color: red;
+      }
+
+     .logout{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+     }
+     .upload{
+        background-color: blue;
+     }
+
+
+     /* Custom CSS for Pinterest page section */
+.card {
+    margin-bottom: 20px; /* Add space between each card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+}
+
+.card img {
+    width: 100%; /* Make sure images fill the entire width of the card */
+    height: 200px; /* Set a fixed height for the images */
+    object-fit: cover; /* Ensure images maintain their aspect ratio */
+}
+
+.card-title {
+    font-size: 18px; /* Set font size for the title */
+    margin-top: 10px; /* Add space above the title */
+}
+
+.pages {
+    display: flex; /* Use flexbox to align cards horizontally */
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    justify-content: space-between; /* Distribute cards evenly across the row */
+}
+
+@media (max-width: 768px) {
+    .pages {
+        justify-content: center; /* Center cards on smaller screens */
+    }
+}
+
+       
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="profile-card text-center">
+                <div class="logout">
+                    <a href="/logout" class="btn btn-primary ami">Logout</a>
+                
+                </div>
+                <!-- Profile Image -->
+                <img src="/images/pinterest.svg" alt="Profile Image" class="profile-image">
+                <!-- Username -->
+                <div class="profile-details">
+                    <h3><%= user.fullName  %></h3>
+                    <p>@<%= user.username  %></p>
+                </div>
+               <p>Welcome to your profile </p>
+               <div class="file-upload-section">
+                <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+                    <input type="file" name="file" class="file-input">
+                    <input type="text" name="filecaption" class="caption-input" placeholder="Enter caption...">
+                    <button type="submit" class="upload-btn">Upload</button>
+                </form>
+            </div>
+            
+               
+        
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Pinterest Pages -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3>Saved Pinterest Pages</h3>
+            <!-- You can add your Pinterest pages here -->
+            <!-- Example: -->
+            <div class="card">
+                <div class="card-body">
+                  <div class="pages">
+                    <% user.post.forEach((post)=>{
+                        %>
+                        <div class="card" style="width:18rem;">
+                        <img src="/images/uploads/<%= post.image %>">
+                        <div class="card-title"><%= post.imageText %></div>
+                        </div>
+                        
+                        
+                        <%
+                    }) %>
+
+
+
+                  </div>
+              
+            
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
